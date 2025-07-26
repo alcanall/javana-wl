@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Corn Dogs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vintage-red: #8B3A3A;
+            --vintage-brown: #5C4033;
+            --cream: #F5F5DC;
+            --paper: #F8F1E5;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--paper);
+            color: var(--vintage-brown);
+            background-image: url('https://placehold.co/1920x1080/5C4033/F8F1E5?text=texture');
+            background-blend-mode: overlay;
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .header {
+            background: var(--vintage-brown);
+            border-bottom: 3px dashed var(--cream);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(92, 64, 51, 0.7), rgba(92, 64, 51, 0.7)), 
+                        url('https://placehold.co/1600x900') no-repeat center center;
+            background-size: cover;
+            border-bottom: 8px double var(--cream);
+        }
+        
+        .menu-card {
+            background: var(--cream);
+            border: 1px solid var(--vintage-brown);
+            box-shadow: 8px 8px 0 rgba(139, 58, 58, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-card::before {
+            content: "HOT";
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--vintage-red);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .price-tag {
+            background: var(--vintage-red);
+            color: white;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            border: 3px solid var(--paper);
+        }
+        
+        .vintage-border {
+            border: 15px solid var(--cream);
+            border-image: url('https://placehold.co/100x100/F8F1E5/5C4033?text=vintage-frame') 30 round;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .vintage-border::after {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: url('https://placehold.co/1600x100/F8F1E5/5C4033?text=scratches') repeat;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .order-form {
+            background: var(--cream);
+            border: 2px solid var(--vintage-brown);
+            border-radius: 0;
+            box-shadow: 10px 10px 0 rgba(139, 58, 58, 0.1);
+        }
+        
+        input, textarea, select {
+            background: white;
+            border: 1px solid var(--vintage-brown) !important;
+            border-radius: 0 !important;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--vintage-red) !important;
+        }
+        
+        .btn-vintage {
+            background: var(--vintage-red);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .btn-vintage:hover {
+            background: var(--vintage-brown);
+            color: white;
+        }
+        
+        .btn-vintage::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: all 0.3s;
+        }
+        
+        .btn-vintage:hover::after {
+            transform: translateX(0);
+        }
+        
+        .divider {
+            height: 3px;
+            background: repeating-linear-gradient(
+                to right,
+                var(--vintage-red),
+                var(--vintage-red) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-card::before {
+                right: -35px;
+                top: 5px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header text-cream sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-hotdog text-3xl text-white"></i>
+                <h1 class="text-2xl md:text-3xl font-bold text-white">Vintage <span class="text-amber-300">Corn Dogs</span></h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="text-white hover:text-amber-300 transition-all uppercase text-sm tracking-wider">Beranda</a></li>
+                    <li><a href="#menu" class="text-white hover:text-amber-300 transition-all uppercase text-sm tracking-wider">Spesial Menu</a></li>
+                    <li><a href="#story" class="text-white hover:text-amber-300 transition-all uppercase text-sm tracking-wider">Cerita Kami</a></li>
+                    <li><a href="#order" class="text-white hover:text-amber-300 transition-all uppercase text-sm tracking-wider">Pesan</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl text-white" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-amber-900 px-4 py-2" id="mobile-menu">
+            <ul class="flex flex-col space-y-3">
+                <li><a href="#home" class="block py-2 text-white hover:text-amber-300 border-b border-amber-700">Beranda</a></li>
+                <li><a href="#menu" class="block py-2 text-white hover:text-amber-300 border-b border-amber-700">Spesial Menu</a></li>
+                <li><a href="#story" class="block py-2 text-white hover:text-amber-300 border-b border-amber-700">Cerita Kami</a></li>
+                <li><a href="#order" class="block py-2 text-white hover:text-amber-300">Pesan</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white py-24 md:py-36 flex items-center relative">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-repeat" style="background-image: url('https://placehold.co/100x100/8B3A3A/F8F1E5?text=noise'); opacity: 0.05;"></div>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Corn Dog <span class="text-amber-300">Vintage</span></h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">Rasa nostalgia dalam setiap gigitan sejak 1985. Dibuat dengan resep turun-temurun dan bahan pilihan.</p>
+            <a href="#menu" class="btn-vintage inline-block">
+                Jelajahi Menu <i class="fas fa-utensils ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-transparent">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 text-vintage-brown">Spesial Menu</h2>
+                <div class="w-24 h-1 bg-vintage-red mx-auto mb-6"></div>
+                <p class="max-w-2xl mx-auto">Nikmati berbagai varian corn dog lezat kami dengan sentuhan nostalgia</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="menu-card p-6 transition-all hover:shadow-lg">
+                    <div class="price-tag">Rp 15K</div>
+                    <div class="vintage-border mb-4">
+                        <img src="https://placehold.co/600x400/F8F1E5/5C4033?text=Classic+Corn+Dog" alt="Classic Corn Dog dengan saus mustard dan saus tomat dalam piring kertas vintage" class="w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Classic Original</h3>
+                    <p class="text-gray-700 mb-4">Corn dog original dengan lapisan crispy sempurna dan sosis premium</p>
+                    <div class="flex items-center text-amber-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="ml-2 text-gray-600">4.7 (128)</span>
+                    </div>
+                    <button class="btn-vintage w-full py-2">
+                        Tambah ke Keranjang <i class="fas fa-cart-plus ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Menu Item 2 -->
+                <div class="menu-card p-6 transition-all hover:shadow-lg">
+                    <div class="price-tag">Rp 18K</div>
+                    <div class="vintage-border mb-4">
+                        <img src="https://placehold.co/600x400/F8F1E5/5C4033?text=Cheesy+Corn+Dog" alt="Corn Dog keju meleleh dengan taburan parsley dan paprika" class="w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Cheesy Blast</h3>
+                    <p class="text-gray-700 mb-4">Kombinasi sosis dan keju mozzarella yang lumer dalam satu gigitan</p>
+                    <div class="flex items-center text-amber-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="ml-2 text-gray-600">4.9 (256)</span>
+                    </div>
+                    <button class="btn-vintage w-full py-2">
+                        Tambah ke Keranjang <i class="fas fa-cart-plus ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Menu Item 3 -->
+                <div class="menu-card p-6 transition-all hover:shadow-lg">
+                    <div class="price-tag">Rp 20K</div>
+                    <div class="vintage-border mb-4">
+                        <img src="https://placehold.co/600x400/F8F1E5/5C4033?text=Spicy+Corn+Dog" alt="Corn Dog pedas dengan saus sambal dan taburan cabai kering" class="w-full">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Spicy Bomb</h3>
+                    <p class="text-gray-700 mb-4">Untuk pecinta pedas dengan sosis jalapeño dan lapisan bumbu spesial</p>
+                    <div class="flex items-center text-amber-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="ml-2 text-gray-600">5.0 (198)</span>
+                    </div>
+                    <button class="btn-vintage w-full py-2">
+                        Tambah ke Keranjang <i class="fas fa-cart-plus ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="py-20 bg-amber-900 bg-opacity-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <div class="vintage-border overflow-hidden">
+                        <img src="https://placehold.co/800x600/F8F1E5/5C4033?text=Our+Story" alt="Pemilik toko corn dog vintage sedang memanggang corn dog di gerai tahun 1980-an" class="w-full">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-vintage-brown">Cerita Kami</h2>
+                    <div class="w-24 h-1 bg-vintage-red mb-6"></div>
+                    <p class="text-lg mb-6">Dimulai dari gerobak kecil di tahun 1985, Vintage Corn Dogs berkomitmen menghadirkan kenikmatan corn dog dengan cita rasa autentik yang tak lekang waktu.</p>
+                    <p class="mb-6">Dengan resep rahasia yang diwariskan melalui tiga generasi, setiap corn dog kami mengandung cerita dan cinta dalam setiap bahan yang dipilih dengan hati-hati.</p>
+                    <div class="bg-cream p-6 border-l-4 border-vintage-red">
+                        <h3 class="font-bold text-xl mb-2">Filosofi Kami</h3>
+                        <p>"Kami percaya makanan yang baik tidak hanya memuaskan perut tetapi juga membangkitkan kenangan indah."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto order-form p-8 md:p-12">
+                <h2 class="text-3xl font-bold mb-8 text-center text-vintage-brown">Pesan Sekarang</h2>
+                
+                <form id="order-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block mb-2 font-medium">Nama Lengkap</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border" required>
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-2 font-medium">Nomor HP</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="address" class="block mb-2 font-medium">Alamat Pengiriman</label>
+                        <textarea id="address" rows="3" class="w-full px-4 py-2 border" required></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="item" class="block mb-2 font-medium">Pilih Menu</label>
+                            <select id="item" class="w-full px-4 py-2 border" required>
+                                <option value="">-- Pilih Corn Dog --</option>
+                                <option value="classic">Classic Original - Rp 15.000</option>
+                                <option value="cheesy">Cheesy Blast - Rp 18.000</option>
+                                <option value="spicy">Spicy Bomb - Rp 20.000</option>
+                                <option value="combo">Combo Package (3 Corn Dogs) - Rp 50.000</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="quantity" class="block mb-2 font-medium">Jumlah</label>
+                            <input type="number" id="quantity" min="1" value="1" class="w-full px-4 py-2 border" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="notes" class="block mb-2 font-medium">Catatan Tambahan</label>
+                        <textarea id="notes" rows="2" class="w-full px-4 py-2 border"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-vintage w-full py-3 text-lg">
+                        Konfirmasi Pesanan <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-vintage-brown text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Vintage Corn Dogs</h3>
+                    <p class="mb-4">Memberikan kenikmatan corn dog sejak 1985 dengan cita rasa yang tak terlupakan.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-amber-300 text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-amber-300 text-xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white hover:text-amber-300 text-xl"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Jam Buka</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between">
+                            <span>Senin - Jumat</span>
+                            <span>10:00 - 22:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sabtu - Minggu</span>
+                            <span>09:00 - 23:00</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Hubungi Kami</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Jl. Vintage No. 1985, Kota Nostalgia</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3"></i>
+                            <span>+62 812 3456 7890</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <span>hello@vintagecorndogs.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-12 pt-6 text-center text-sm">
+                <p>&copy; 2023 Vintage Corn Dogs. Seluruh hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Form submission
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Terima kasih! Pesanan Anda telah kami terima. Kami akan menghubungi Anda segera untuk konfirmasi.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
