@@ -289,59 +289,6 @@
         </div>
     </section>
 
-    <!-- Order Section -->
-    <section id="order" class="py-20">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto order-form p-8 md:p-12">
-                <h2 class="text-3xl font-bold mb-8 text-center text-vintage-brown">Pesan Sekarang</h2>
-                
-                <form id="order-form" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block mb-2 font-medium">Nama Lengkap</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border" required>
-                        </div>
-                        <div>
-                            <label for="phone" class="block mb-2 font-medium">Nomor HP</label>
-                            <input type="tel" id="phone" class="w-full px-4 py-2 border" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="address" class="block mb-2 font-medium">Alamat Pengiriman</label>
-                        <textarea id="address" rows="3" class="w-full px-4 py-2 border" required></textarea>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="item" class="block mb-2 font-medium">Pilih Menu</label>
-                            <select id="item" class="w-full px-4 py-2 border" required>
-                                <option value="">-- Pilih Corn Dog --</option>
-                                <option value="classic">Classic Original - Rp 15.000</option>
-                                <option value="cheesy">Cheesy Blast - Rp 18.000</option>
-                                <option value="spicy">Spicy Bomb - Rp 20.000</option>
-                                <option value="combo">Combo Package (3 Corn Dogs) - Rp 50.000</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="quantity" class="block mb-2 font-medium">Jumlah</label>
-                            <input type="number" id="quantity" min="1" value="1" class="w-full px-4 py-2 border" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="notes" class="block mb-2 font-medium">Catatan Tambahan</label>
-                        <textarea id="notes" rows="2" class="w-full px-4 py-2 border"></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn-vintage w-full py-3 text-lg">
-                        Konfirmasi Pesanan <i class="fas fa-paper-plane ml-2"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-vintage-brown text-white py-12">
         <div class="container mx-auto px-4">
@@ -400,13 +347,6 @@
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
-        });
-        
-        // Form submission
-        document.getElementById('order-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Terima kasih! Pesanan Anda telah kami terima. Kami akan menghubungi Anda segera untuk konfirmasi.');
-            this.reset();
         });
         
         // Smooth scrolling for anchor links
