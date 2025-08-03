@@ -391,11 +391,19 @@
         });
     </script>
 
-    <button onclick="document.getElementById('bg-music').play()">🎵 Putar Musik</button>
-    
-    <audio id="bg-music" loop>
-      <source src="https://a.top4top.io/m_3502r3qm31.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="background-music" src="https://a.top4top.io/m_3502r3qm31.mp3" autoplay loop></audio>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        audio.volume = 0.5;
+
+        audio.play().catch(() => {
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+    </script>
+
 
 </body>
 </html>
