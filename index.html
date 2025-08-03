@@ -370,27 +370,32 @@
         });
     </script>
 
-<script>
-  const ip = "31.58.1.123"; // Ganti dengan IP server kamu
-  const port = "7777";      // Ganti dengan port server kamu
-
-  fetch(`https://sampstatus.blast.hk/api/query/${ip}/${port}`)
-    .then(response => response.json())
-    .then(data => {
-      const statusEl = document.getElementById("player-count");
-
-      if (data.online) {
-        statusEl.innerText = `${data.players} / ${data.maxplayers}`;
-      } else {
-        statusEl.innerText = "Server Offline";
-      }
-    })
-    .catch(error => {
-      document.getElementById("player-count").innerText = "Error";
-      console.error(error);
-    });
-</script>
-
+    <script>
+      const ip = "31.58.1.123"; // Ganti dengan IP server kamu
+      const port = "7777";      // Ganti dengan port server kamu
+    
+      fetch(`https://sampstatus.blast.hk/api/query/${ip}/${port}`)
+        .then(response => response.json())
+        .then(data => {
+          const statusEl = document.getElementById("player-count");
+    
+          if (data.online) {
+            statusEl.innerText = `${data.players} / ${data.maxplayers}`;
+          } else {
+            statusEl.innerText = "Server Offline";
+          }
+        })
+        .catch(error => {
+          document.getElementById("player-count").innerText = "Error";
+          console.error(error);
+        });
+    </script>
+    
+    <!-- Audio autoplay -->
+      <audio id="bg-music" autoplay loop>
+        <source src="namafile.mp3" type="audio/mpeg">
+        Browser kamu tidak mendukung elemen audio.
+      </audio>
 
 </body>
 </html>
