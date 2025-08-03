@@ -391,10 +391,18 @@
         });
     </script>
     
-     <audio id="bg-music" autoplay loop>
-        <source src="https://a.top4top.io/m_3502r3qm31.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung elemen audio.
-      </audio>
+    <audio id="bg-music" autoplay loop>
+      <source src="https://a.top4top.io/m_3502r3qm31.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+      window.addEventListener('load', function() {
+        const audio = document.getElementById('bg-music');
+        audio.play().catch((err) => {
+          console.log("Autoplay diblokir oleh browser:", err);
+        });
+      });
+    </script>
 
 </body>
 </html>
