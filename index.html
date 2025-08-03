@@ -1,114 +1,396 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javana Country Roleplay</title>
+    <title>SAMP Account Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: #f8fafc;
         }
-        .form-input:focus {
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        
+        .card {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
         }
-        .error-message {
-            transition: all 0.3s ease;
+        
+        .server-status {
+            animation: pulse 2s infinite;
         }
-        .floating-label {
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+            }
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .file-icon {
             transition: all 0.2s ease;
-            pointer-events: none;
         }
-        .form-input:focus + .floating-label,
-        .form-input:not(:placeholder-shown) + .floating-label {
-            transform: translateY(-24px) scale(0.8);
-            color: #3b82f6;
-            background-color: white;
-            padding: 0 4px;
+        
+        .file-icon:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.7));
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+<body class="p-4 md:p-8">
+    <div class="container mx-auto max-w-6xl">
         <!-- Header -->
-        <div class="bg-blue-600 p-6 text-center">
-            <div class="flex justify-center mb-4">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73cd81a2-499f-49ae-ba77-59ff64781cc6.png" 
-                     alt="Logo Server SAMP" 
-                     class="rounded-full border-4 border-white shadow-md">
-            </div>
-            <h1 class="text-2xl font-bold text-white">Javana Country Roleplay</h1>
-            <p class="text-blue-100 mt-1">Isi formulir dibawah ini untuk Whitelist akun</p>
-        </div>
-        
-        <!-- Form -->
-        <form id="registerForm" class="p-6">
-            <!-- Username Field -->
-            <div class="relative my-4">
-                <input type="text" id="username" name="username" 
-                       class="form-input w-full p-3 border border-gray-300 rounded-lg focus:outline-none" 
-                       placeholder=" " required>
-                <label for="username" class="floating-label absolute left-3 top-3 text-gray-400">Username</label>
-                <div id="usernameError" class="error-message text-red-500 text-sm mt-1 hidden">
-                    Gunakan _ untuk spasi dan username harus minimal 7 karakter, tanpa angka
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://iili.io/F4CdD1j.png" alt="SAMP Server Logo with dragon emblem in dark red and gold colors" class="rounded-full">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Javana Country Roleplay</h1>
+                    <p class="text-sm text-slate-300">Modern Medium Roleplay</p>
                 </div>
             </div>
             
-            <!-- Submit Button -->
-            <button type="submit" 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 mt-4">
-                Whitelist Sekarang
-            </button>
+            <div class="flex items-center space-x-2 bg-slate-800/50 px-4 py-2 rounded-full">
+                <div class="w-3 h-3 rounded-full bg-green-500 server-status"></div>
+                <span class="text-sm">Player Online:</span>
+                <span class="text-xs text-slate-400 ml-2"<span id="player-count">Loading...</span>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Left Side (Tabs) -->
+            <div class="lg:col-span-1 card p-6">
+                <div class="flex flex-col space-y-2">
+                    <button onclick="openTab('register')" class="tab-btn active py-3 px-4 rounded-lg text-left flex items-center bg-slate-700/50 hover:bg-slate-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Account Registration
+                   
+                    </button>
+                    <button onclick="openTab('rules')" class="tab-btn py-3 px-4 rounded-lg text-left flex items-center hover:bg-slate-600 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        Server Rules
+                    </button>
+                </div>
+                
+                <div class="mt-8 p-4 bg-slate-800/30 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://iili.io/F4Cc3ZX.png" alt="Admin avatar wearing a red dragon themed armor" class="rounded-full">
+                        <div>
+                            <h4 class="font-medium text-emerald-400">Algzzli</h4>
+                            <p class="text-xs text-slate-400">Owner Server</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm">
+                        <p>IP Server:</p>
+                        <div class="mt-2 flex items-center bg-slate-700/50 px-3 py-2 rounded-lg">
+                            <span class=>127.0.0.1:7777</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-        </form>
+            <!-- Right Side (Content) -->
+            <div class="lg:col-span-2">
+                <!-- Registration Tab -->
+                <div id="register" class="tab-content active card p-6">
+                    <h2 class="text-xl font-bold mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Create Your Account
+                    </h2>
+                    
+                    <form id="registrationForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-1">Username</label>
+                                <input type="text" required class="w-full px-4 py-2 bg-slate-700/50 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent" placeholder="Enter your username">
+                                <p class="text-xs mt-1 text-slate-400">Min. 5 character
+                                </p>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="flex items-start mt-4">
+                            <input type="checkbox" required class="mt-1 rounded bg-slate-700/50 border-slate-600 text-emerald-400 focus:ring-emerald-500">
+                            <label class="ml-2 text-sm">
+                                I agree to the <a href="#" class="text-emerald-400 hover:underline">Terms of Service</a> and <a href="#" class="text-emerald-400 hover:underline">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-lg hover:from-emerald-600 hover:to-teal-600 transition duration-300 shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                Register Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Rules Tab -->
+                <div id="rules" class="tab-content card p-6">
+                    <h2 class="text-xl font-bold mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        Server Rules & Guidelines
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-amber-900/10 border-l-4 border-amber-500 p-4 rounded-r-lg">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-amber-300">Important Notice</h3>
+                                    <div class="mt-2 text-sm text-amber-200">
+                                        <p>Violation of these rules may result in temporary suspension or permanent ban from our server.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/30 rounded-lg overflow-hidden">
+                            <div class="bg-slate-700/50 px-4 py-3">
+                                <h3 class="font-medium text-lg">General Rules</h3>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>Respect all players and staff members. Harassment or discrimination will not be tolerated.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>No cheating, hacking, or use of any third-party software that provides an unfair advantage.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>No spamming in chat (text or voice), including advertising other servers.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>Roleplay appropriately - stay in character and follow the server's roleplay guidelines.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-800/30 rounded-lg overflow-hidden">
+                            <div class="bg-slate-700/50 px-4 py-3">
+                                <h3 class="font-medium text-lg">Roleplay Specific Rules</h3>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>No metagaming (using out-of-character knowledge in character).</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>No powergaming (forcing actions on other players without giving them a chance to respond).</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>No random deathmatching (RDM) - all hostile actions must have proper roleplay justification.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 text-amber-400 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <p>Follow all faction rules and guidelines if you're part of an official faction.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-sm text-slate-500">
+            <p>© 2025 Javana Country Roleplay Server. All rights reserved.</p>
+            <p class="mt-1">SAMP Version: 0.3.7 | Server Version: 2.4.1</p>
+        </footer>
     </div>
 
     <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        // Tab functionality
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+                if (tabButtons[i].getAttribute('onclick').includes(tabName)) {
+                    tabButtons[i].classList.add('active');
+                }
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+        }
+        
+        // Registration form handling
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Reset error messages
-            document.querySelectorAll('.error-message').forEach(el => {
-                el.classList.add('hidden');
-            });
+            let username = this.querySelector('input[type="text"]').value.trim();
             
-            // Get form values
-            const username = document.getElementById('username').value;
-            
-            let isValid = true;
-            
-            // Validate username
-            const usernamePattern = /^[A-Za-z_]+$/;
-            if (username.length < 7 || !usernamePattern.test(username)) {
-            document.getElementById('usernameError').classList.remove('hidden');
-            isValid = false;
+            if (username.length < 5) 
+            {
+                alert('Username must be at least 5 characters long');
+                return;
+            }
+ 
+            if (username.includes('_')) 
+            {
+                alert('Username tidak boleh menggunakan simbol _');
+                return;
             }
             
-            // If valid, redirect to WhatsApp with WL request
-            if (isValid) {
-                const username = document.getElementById('username').value;
-                const whatsappUrl = `https://wa.me/254774848005?text=!wl ${username.replace(/\s+/g, '_')}`;
-                window.open(whatsappUrl, '_blank');
-                this.reset();
+            let words = username.split(/\s+/);
+            if (words.length !== 2)
+            {
+                alert('Username harus terdiri dari 2 kata, contoh: Thomas Galileus');
+                return;
             }
-        });
+            
+            words = words.map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            );
+            username = words.join(' ');
+            
+            alert(`Registration successful! Your SAMP account has been created, anda akan diarahkan ke WhatsApp untuk pendaftaran.`);
+            
+             const chatName = username.replace(/\s+/g, '_');
+             const phoneNumber = '6285896135290';
+             const message = `!wl ${chatName}`;
 
-        // Input validation on blur
-        document.getElementById('username').addEventListener('blur', function() {
-            if (this.value.length > 0 && this.value.length < 4) {
-                document.getElementById('usernameError').classList.remove('hidden');
-            }
+             // Redirect ke WhatsApp
+             window.location.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Reset form
+            this.reset();
+            
         });
         
-        document.getElementById('email').addEventListener('blur', function() {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (this.value.length > 0 && !emailPattern.test(this.value)) {
-                document.getElementById('emailError').classList.remove('hidden');
-            }
+        // SFTP file actions simulation
+        document.querySelectorAll('.file-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const fileName = this.parentElement.querySelector('span').textContent;
+                alert(`You clicked on: ${fileName}\n\nThis would open the file viewer in a real implementation.`);
+            });
         });
     </script>
+
+<script>
+  const ip = "31.58.1.123"; // Ganti dengan IP server kamu
+  const port = "7777";      // Ganti dengan port server kamu
+
+  fetch(`https://sampstatus.blast.hk/api/query/${ip}/${port}`)
+    .then(response => response.json())
+    .then(data => {
+      const statusEl = document.getElementById("player-count");
+
+      if (data.online) {
+        statusEl.innerText = `${data.players} / ${data.maxplayers}`;
+      } else {
+        statusEl.innerText = "Server Offline";
+      }
+    })
+    .catch(error => {
+      document.getElementById("player-count").innerText = "Error";
+      console.error(error);
+    });
+</script>
+
+
 </body>
 </html>
-
